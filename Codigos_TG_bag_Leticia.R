@@ -6,7 +6,8 @@ library(fastDummies)
 
 # leitura dos dados
 
-Dados_telecom <- read_excel("C:/Users/José Carlos/Documents/TG/Leticia/Dados/Dados_telecom.xls")
+Dados_telecom <- read_excel("C:/Users/User/Downloads/Dados_telecom (2).xls")
+
 View(Dados_telecom)
 
 attach(Dados_telecom)
@@ -141,7 +142,7 @@ train = Telecom[casos.treino,]
 valid=Telecom[-casos.treino,]
 
 ##############################
-# Definição das vari?veis ####
+# DefiniÃ§Ã£o das vari?veis ####
 ##############################
 tempo = train$clienduracao
 cens <- train$churn01
@@ -190,7 +191,7 @@ erro_sobrev <- (tabela_sobrev[1,2]+tabela_sobrev[2,1])/750
 churn.pred_sobrev <- (tabela_sobrev[2,1]+tabela_sobrev[2,2])/750
 tabela_sobrev
 final_sobrev <- c(erro_sobrev, churn.pred_sobrev)
-names(final_sobrev) <- c("Erro sobrevivência", "Predição churn sobrevivência")
+names(final_sobrev) <- c("Erro sobrevivÃªncia", "PrediÃ§Ã£o churn sobrevivÃªncia")
 final_sobrev
 
 
@@ -280,13 +281,13 @@ churn.pred.b <- tabela[2,1]+tabela[2,2]
 tx.erro.b <- erro.b/nt
 tx.pred.b <- churn.pred.b/nt
 final.b <- c(tx.erro.b, tx.pred.b)
-names(final.b) <- c("Erro bagging", "Predição churn bagging")
+names(final.b) <- c("Erro bagging", "PrediÃ§Ã£o churn bagging")
 final.b
 
 mn <- 0.95*min(taxa, tx.erro.b)
 mx <- 1.05*max(taxa, tx.erro.b)
 
-plot(c(1,nb), c(mn,mx), type = "n", main = "Evolução do erro no bagging treinamento",
+plot(c(1,nb), c(mn,mx), type = "n", main = "EvoluÃ§Ã£o do erro no bagging treinamento",
      xlab = "Passo", ylab = " ", cex.main=0.8)
 lines(taxa, col="red3")
 legend("bottomright", legend=paste("erro bagging =", round(tx.erro.b,4)), bty="n", cex=0.8)
@@ -359,18 +360,18 @@ churn.pred.valid <- tabela.valid[2,1]+tabela.valid[2,2]
 tx.erro.valid <- erro.valid/nv
 tx.pred.valid <- churn.pred.valid/nv
 final.valid <- c(tx.erro.valid, tx.pred.valid)
-names(final.valid) <- c("Erro bagging.validaçao", "Predição churn bagging.validação")
+names(final.valid) <- c("Erro bagging.validaÃ§ao", "PrediÃ§Ã£o churn bagging.validaÃ§Ã£o")
 final.valid
 
 
 mn <- 0.95*min(taxa.v)
 mx <- 1.05*max(taxa.v)
 
-plot(c(1,nb), c(mn,mx), type = "n", main = "Evolução do erro no bagging validação",
+plot(c(1,nb), c(mn,mx), type = "n", main = "EvoluÃ§Ã£o do erro no bagging validaÃ§Ã£o",
      xlab = "Passo",ylab = " ", cex.main=0.8)
 lines(taxa.v, col="red3")
 legend("bottomright", legend=paste("erro bagging =", round(tx.erro.valid,4)), bty="n", cex=0.8)
-legend("topleft", c("erro validação", "erro bagging"), lty=c(1,2), col=c("red3","blue2"), bty="n",cex=0.8)
+legend("topleft", c("erro validaÃ§Ã£o", "erro bagging"), lty=c(1,2), col=c("red3","blue2"), bty="n",cex=0.8)
 lines(c(0,nb), c(tx.erro.valid, tx.erro.valid), lty=2, col="blue4")
 
 
@@ -381,7 +382,7 @@ score.bag_t0 <- S.ajus[cens.b==0]
 score.bag_t1 <- S.ajus[cens.b==1]
 ks.test(score.bag_t0, score.bag_t1)
 
-## Gr?fico f.d.a. empíricas
+## Gr?fico f.d.a. empÃ­ricas
 ###########################
 Fy.bag.t0 <- ecdf(score.bag_t0)
 Fy.bag.t1 <- ecdf(score.bag_t1)
@@ -390,7 +391,7 @@ plot(Fy.bag.t0, xlim=c(0,1), ylim=c(0,1), main="FDA das probabilidades estimadas
 par(new=T)
 plot(Fy.bag.t1, xlim=c(0,1), ylim=c(0,1), main=" ", do.points=F, axes=F,
      col="red3", xlab=" ", ylab=" ", cex.main=1, lwd=2, verticals=T)
-legend(0,0.95, legend=c("Não Churn", "Churn"),
+legend(0,0.95, legend=c("NÃ£o Churn", "Churn"),
        col=c("blue3","red3"), lwd=2, bty="n")
 
 
@@ -404,12 +405,12 @@ ks.test(score.bag_v0, score.bag_v1)
 Fy.bag.v0 <- ecdf(score.bag_v0)
 Fy.bag.v1 <- ecdf(score.bag_v1)
 
-plot(Fy.bag.v1,xlim=c(0,1), ylim=c(0,1), main="FDA das probabilidades estimadas - bagging validação", do.points=F,
+plot(Fy.bag.v1,xlim=c(0,1), ylim=c(0,1), main="FDA das probabilidades estimadas - bagging validaÃ§Ã£o", do.points=F,
      col="red3", xlab="probabilidades", ylab="", cex.main=1, lwd=2, verticals=T)
 par(new=T)
 plot(Fy.bag.v0,xlim=c(0,1), ylim=c(0,1), main=" ", do.points=F, axes=F,
      col="blue3", xlab=" ", ylab="", cex.main=1, lwd=2, verticals=T)
-legend(0,0.95, legend=c("Não Churn", "Churn"),
+legend(0,0.95, legend=c("NÃ£o Churn", "Churn"),
        col=c("blue3","red3"), lwd=2, bty="n")
 
 
@@ -447,13 +448,13 @@ churn.pred.p <- tabela[2,1]+tabela[2,2]
 tx.erro.p <- erro.p/nt
 tx.pred.p <- churn.pred.p/nt
 final.p <- c(tx.erro.p, tx.pred.p)
-names(final.p) <- c("Erro bagging poderado", "Predição churn bagging poderado")
+names(final.p) <- c("Erro bagging poderado", "PrediÃ§Ã£o churn bagging poderado")
 final.p
 
 mn <- 0.95*min(taxa, tx.erro.b)
 mx <- 1.05*max(taxa, tx.erro.b)
 
-plot(c(1,nb), c(mn,mx), type = "n", main = "Evolução do erro no bagging treinamento com escore de Brier",
+plot(c(1,nb), c(mn,mx), type = "n", main = "EvoluÃ§Ã£o do erro no bagging treinamento com escore de Brier",
      xlab = "Passo", ylab = " ", cex.main=0.8)
 lines(taxa, col="red3")
 legend("bottomright", legend=paste("erro bagging =", round(tx.erro.b,4)), bty="n", cex=0.8)
@@ -526,17 +527,17 @@ churn.pred.valid <- tabela.valid[2,1]+tabela.valid[2,2]
 tx.erro.valid <- erro.valid/nv
 tx.pred.valid <- churn.pred.valid/nv
 final.valid <- c(tx.erro.valid, tx.pred.valid)
-names(final.valid) <- c("Erro bagging validação ponderada", "Predição churn bagging validação ponderada")
+names(final.valid) <- c("Erro bagging validaÃ§Ã£o ponderada", "PrediÃ§Ã£o churn bagging validaÃ§Ã£o ponderada")
 final.valid
 
 mn <- 0.95*min(taxa.v)
 mx <- 1.05*max(taxa.v)
 
-plot(c(1,nb), c(mn,mx), type = "n", main = "Evolução do erro no bagging validação com escore de Brier",
+plot(c(1,nb), c(mn,mx), type = "n", main = "EvoluÃ§Ã£o do erro no bagging validaÃ§Ã£o com escore de Brier",
      xlab = "Passo",ylab = " ", cex.main=0.8)
 lines(taxa.v, col="red3")
 legend("bottomright", legend=paste("erro bagging =", round(tx.erro.valid,4)), bty="n", cex=0.8)
-legend("topleft", c("erro validação", "erro bagging"), lty=c(1,2), col=c("red3","blue2"), bty="n",cex=0.8)
+legend("topleft", c("erro validaÃ§Ã£o", "erro bagging"), lty=c(1,2), col=c("red3","blue2"), bty="n",cex=0.8)
 lines(c(0,nb), c(tx.erro.valid, tx.erro.valid), lty=2, col="blue4")
 
 
