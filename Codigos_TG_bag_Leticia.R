@@ -19,6 +19,134 @@ Dados_telecom = Dados_telecom %>% mutate(receitas1 = as.numeric(receitas1),
 
 Dados_telecom = Dados_telecom %>% mutate(receita = receitas1 + receitas2 + receitas3 + receitas4)
 
+
+##########################
+## Análise Descritiva ####
+##########################
+
+summary(Dados_telecom)
+
+
+xtable(t(as.matrix(summary(Dados_telecom))))# sai a tabela em latex
+
+# tabelas de frequencia para variaveis categóricas 
+
+freq_categ = table(Dados_telecom$clientecateg)
+
+freq_regiao = table(Dados_telecom$regiao)
+
+freq_estadocivil = table(Dados_telecom$estadocivil)
+
+freq_educacao = table(Dados_telecom$educacao)
+
+freq_aposentado= table(Dados_telecom$aposentado)
+
+freq_sexo= table(Dados_telecom$sexo)
+
+
+xtable(t(as.matrix(freq_categ)))# sai a tabela em latex
+
+xtable(t(as.matrix(freq_regiao)))# sai a tabela em latex
+
+xtable(t(as.matrix(freq_estadocivil)))# sai a tabela em latex
+
+xtable(t(as.matrix(freq_educacao)))# sai a tabela em latex
+
+xtable(t(as.matrix(freq_aposentado)))# sai a tabela em latex
+
+xtable(t(as.matrix(freq_sexo)))# sai a tabela em latex
+
+
+
+
+## GRAFICO DE BARRAS
+
+
+bar_categ = ggplot(Dados_telecom, aes(x=clientecateg)) +
+  geom_bar(fill = 'seagreen', alpha = 1) +
+  labs(x = "Categoria do Cliente" , y = 'Contagem') +
+  theme_get()
+
+
+bar_regiao = ggplot(Dados_telecom, aes(x=regiao)) +
+  geom_bar(fill = 'seagreen1', alpha = 1) +
+  labs(x = "Região do Cliente" , y = 'Contagem') +
+  theme_get()
+
+
+bar_estadocivil = ggplot(Dados_telecom, aes(x=estadocivil)) +
+  geom_bar(fill = 'seagreen2', alpha = 1) +
+  labs(x = "Estado Civil do Cliente" , y = 'Contagem') +
+  theme_get()
+
+bar_educacao = ggplot(Dados_telecom, aes(x=educacao)) +
+  geom_bar(fill = 'seagreen3', alpha = 1) +
+  labs(x = "Nível educacional do Cliente" , y = 'Contagem') +
+  theme_get()
+
+bar_apossentado = ggplot(Dados_telecom, aes(x=aposentado)) +
+  geom_bar(fill = 'seagreen4', alpha = 1) +
+  labs(x = "Cliente é aposentado" , y = 'Contagem') +
+  theme_get()
+
+bar_ssexo = ggplot(Dados_telecom, aes(x=sexo)) +
+  geom_bar(fill = 'springgreen3', alpha = 1) +
+  labs(x = "Sexo do Cliente" , y = 'Contagem') +
+  theme_get()
+
+
+
+print(grid.arrange(bar_categ, bar_regiao,bar_estadocivil,bar_educacao,
+                   bar_apossentado,bar_ssexo,ncol=2))
+
+
+## Variáveis contínuas 
+
+boxplot_clienduracaao = ggplot(Dados_telecom, aes(x=clienduracao)) +
+  geom_boxplot(fill = 'palegreen', alpha = 1) +
+  labs(x = "Duração do Cliente" , y = 'Contagem') +
+  theme_get()
+
+boxplt_idade = ggplot(Dados_telecom, aes(x=idade)) +
+  geom_boxplot(fill = 'palegreen1', alpha = 1) +
+  labs(x = "Idade do Cliente" , y = 'Contagem') +
+  theme_get()
+
+
+boxplot_residduracaao = ggplot(Dados_telecom, aes(x=residduracao)) +
+  geom_boxplot(fill = 'palegreen2', alpha = 1) +
+  labs(x = "Duração da residencia do Cliente" , y = 'Contagem') +
+  theme_get()
+
+boxplot_empregduracaao = ggplot(Dados_telecom, aes(x=emprduracao)) +
+  geom_boxplot(fill = 'palegreen3', alpha = 1) +
+  labs(x = "Duração do emprego do Cliente" , y = 'Contagem') +
+  theme_get()
+
+boxplot_renda = ggplot(Dados_telecom, aes(x=renda)) +
+  geom_boxplot(fill = 'palegreen4', alpha = 1) +
+  labs(x = "Renda do Cliente" , y = 'Contagem') +
+  theme_get()
+
+boxplot_residentes = ggplot(Dados_telecom, aes(x=residentes)) +
+  geom_boxplot(fill = 'mediumseagreen', alpha = 1) +
+  labs(x = "Número de residentes" , y = 'Contagem') +
+  theme_get()
+
+boxplot_totreceitas = ggplot(Dados_telecom, aes(x=tot_receitas)) +
+  geom_boxplot(fill = 'mediumspringgreen', alpha = 1) +
+  labs(x = "Receitas do Cliente" , y = 'Contagem') +
+  theme_get()
+
+
+
+print(grid.arrange(boxplot_clienduracaao, boxplt_idade,boxplot_residduracaao,boxplot_empregduracaao,
+                   boxplot_renda,boxplot_residentes,boxplot_totreceitas,ncol=2))
+
+
+
+
+
 ##########################
 ## Variaveis dummies ####
 #########################
