@@ -6,7 +6,9 @@ library(fastDummies)
 
 # leitura dos dados
 
-Dados_telecom <- read_excel("C:/Users/José Carlos/Documents/TG/Leticia/Dados/Dados_telecom.xls")
+
+Dados_telecom <- read_excel("C:/Users/User/Downloads/Dados_telecom (2).xls")
+
 View(Dados_telecom)
 
 attach(Dados_telecom)
@@ -247,13 +249,13 @@ churn.pred.b <- tabela[2,1]+tabela[2,2]
 tx.erro.b <- erro.b/nt
 tx.pred.b <- churn.pred.b/nt
 final.b <- c(tx.erro.b, tx.pred.b)
-names(final.b) <- c("Erro bagging", "Predição churn bagging")
+names(final.b) <- c("Erro bagging", "PrediÃ§Ã£o churn bagging")
 final.b
 
 mn <- 0.95*min(taxa, tx.erro.b)
 mx <- 1.05*max(taxa, tx.erro.b)
 
-plot(c(1,nb), c(mn,mx), type = "n", main = "Evolução do erro no bagging treinamento",
+plot(c(1,nb), c(mn,mx), type = "n", main = "EvoluÃ§Ã£o do erro no bagging treinamento",
      xlab = "Passo", ylab = " ", cex.main=0.8)
 lines(taxa, col="red3")
 legend("bottomright", legend=paste("erro bagging =", round(tx.erro.b,4)), bty="n", cex=0.8)
@@ -325,18 +327,18 @@ churn.pred.valid <- tabela.valid[2,1]+tabela.valid[2,2]
 tx.erro.valid <- erro.valid/nv
 tx.pred.valid <- churn.pred.valid/nv
 final.valid <- c(tx.erro.valid, tx.pred.valid)
-names(final.valid) <- c("Erro bagging.validaçao", "Predição churn bagging.validação")
+names(final.valid) <- c("Erro bagging.validaÃ§ao", "PrediÃ§Ã£o churn bagging.validaÃ§Ã£o")
 final.valid
 
 
 mn <- 0.95*min(taxa.v)
 mx <- 1.05*max(taxa.v)
 
-plot(c(1,nb), c(mn,mx), type = "n", main = "Evolução do erro no bagging validação",
+plot(c(1,nb), c(mn,mx), type = "n", main = "EvoluÃ§Ã£o do erro no bagging validaÃ§Ã£o",
      xlab = "Passo",ylab = " ", cex.main=0.8)
 lines(taxa.v, col="red3")
 legend("bottomright", legend=paste("erro bagging =", round(tx.erro.valid,4)), bty="n", cex=0.8)
-legend("topleft", c("erro validação", "erro bagging"), lty=c(1,2), col=c("red3","blue2"), bty="n",cex=0.8)
+legend("topleft", c("erro validaÃ§Ã£o", "erro bagging"), lty=c(1,2), col=c("red3","blue2"), bty="n",cex=0.8)
 lines(c(0,nb), c(tx.erro.valid, tx.erro.valid), lty=2, col="blue4")
 
 
