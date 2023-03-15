@@ -1,8 +1,10 @@
-library(lifecycle)
 library(dplyr)
 library(readxl)
 library(survival)
 library(fastDummies)
+library(ggplot2)
+library(xtable)# para tabela sair em latex
+library(gridExtra)
 
 # leitura dos dados
 
